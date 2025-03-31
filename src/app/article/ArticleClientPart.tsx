@@ -78,30 +78,36 @@ export default function ArticleClientPart({
     // Map categories to images
     switch (category) {
       case "food":
-        imageUrl = "https://unsplash.com/photos/IGfIGP5ONV0"; // Food photography
+        imageUrl =
+          "https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg"; // Food photography
         break;
       case "technology":
-        imageUrl = "https://unsplash.com/photos/8pb7Hq539Zw"; // Technology workspace
+        imageUrl =
+          "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1200"; // Technology workspace
         break;
       case "education":
-        imageUrl = "https://unsplash.com/photos/Oaqk7qqNh_c"; // Students in a library
+        imageUrl =
+          "https://images.pexels.com/photos/301926/pexels-photo-301926.jpeg?auto=compress&cs=tinysrgb&w=1200"; // Students in a library
         break;
       case "lifestyle":
-        imageUrl = "https://unsplash.com/photos/1AhGNGKuhR0"; // Lifestyle reading moment
+        imageUrl =
+          "https://images.pexels.com/photos/1172253/pexels-photo-1172253.jpeg?auto=compress&cs=tinysrgb&w=1200"; // Lifestyle reading moment
         break;
       case "business":
-        imageUrl = "https://unsplash.com/photos/hpjSkU2UYSU"; // Business meeting
+        imageUrl =
+          "https://images.pexels.com/photos/3184416/pexels-photo-3184416.jpeg?auto=compress&cs=tinysrgb&w=1200"; // Business meeting
         break;
       case "entertainment":
         imageUrl =
-          "https://images.unsplash.com/photo-1603190287605-e6ade32fa852"; // Entertainment event
+          "https://images.pexels.com/photos/1047442/pexels-photo-1047442.jpeg?auto=compress&cs=tinysrgb&w=1200"; // Entertainment event
         break;
       case "travel":
         imageUrl =
-          "https://plus.unsplash.com/premium_photo-1664361480872-6416aab14696"; // Scenic travel destination
+          "https://images.pexels.com/photos/1172253/pexels-photo-1172253.jpeg?auto=compress&cs=tinysrgb&w=1200"; // Scenic travel destination
         break;
       default:
-        imageUrl = "https://unsplash.com/photos/KMn4VEeEPR8"; // Default scenic view
+        imageUrl =
+          "https://images.pexels.com/photos/7195851/pexels-photo-7195851.jpeg?auto=compress&cs=tinysrgb&w=1200"; // Default scenic view
     }
 
     setFeatureImage(imageUrl);
