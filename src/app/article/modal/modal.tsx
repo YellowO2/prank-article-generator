@@ -71,10 +71,6 @@ export default function RickRollModal({
     return null; // Don't render anything if not visible
   }
 
-  // Determine if the video should be visually revealed
-  // Reveal only after captcha AND after the iframe has loaded
-  const shouldRevealVideo = !showFakeCaptcha && !isVideoLoading;
-
   return (
     <div className="modal modal-open">
       <div className="modal-box relative">
@@ -132,7 +128,7 @@ export default function RickRollModal({
           </div>
 
           <p className="mb-4">
-            This article's rick roll has {viewCount} views :)
+            This article&apos;s rick roll has {viewCount} views :)
           </p>
           {/* Share buttons and QR code logic */}
           {/* Share buttons and QR code logic remain the same */}
