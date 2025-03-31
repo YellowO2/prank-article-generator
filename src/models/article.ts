@@ -5,4 +5,5 @@ export interface Article {
   type: string;
   slug: string;
   views: number;
+  category: string;
 }

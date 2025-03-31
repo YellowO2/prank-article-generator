@@ -43,11 +43,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    let content, title;
+    let content, title, category;
     try {
       const result = await generateArticleContent(description);
       title = result.title;
       content = result.content;
+      category = result.category;
     } catch (error) {
       console.error("Content generation failed:", error);
       return NextResponse.json(
@@ -78,6 +79,7 @@ export async function POST(req: NextRequest) {
       content: content,
       slug: finalSlug,
       views: 0,
+      category: category,
       // headline: "Test Headline",
       // description: "Test Description",
       // type: "news-article",

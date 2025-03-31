@@ -1,17 +1,17 @@
-// src/app/article/[slug]/ArticleClientPart.tsx OR src/components/ArticleClientPart.tsx
-"use client"; // <--- Marks this as a Client Component
-
-import { useState } from "react";
-import styles from "../article/article.module.css"; // Assuming CSS module is in the same dir or adjust path
-import RickRollModal from "./modal/modal"; // Adjust path to your modal component
+"use client";
+import { useState, useEffect } from "react";
+import styles from "../article/article.module.css";
+import RickRollModal from "./modal/modal";
 
 interface ArticleClientPartProps {
   article: {
     headline: string;
-    views: number; // Pass the view count down
-    // Pass any other article fields needed for display if not derived from paragraphs
+    views: number;
+    description: string; // Use this for subheading if available
+    type?: string; // Could be used for category tag
+    category: string; // Category for the article
   };
-  paragraphs: string[]; // Pass the processed paragraphs
+  paragraphs: string[];
 }
 
 export default function ArticleClientPart({
@@ -19,57 +19,261 @@ export default function ArticleClientPart({
   paragraphs,
 }: ArticleClientPartProps) {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  // Determine how many paragraphs to show initially
-  const initialParagraphsToShow = 3; // Adjust as needed
+  const [featureImage, setFeatureImage] = useState(
+    "https://unsplash.com/photos/white-clouds-3OIya0SQr3M"
+  );
+  const initialParagraphsToShow = 3;
   const visibleParagraphs = paragraphs.slice(0, initialParagraphsToShow);
-  const hasMoreContent = paragraphs.length > initialParagraphsToShow;
+  const hasMoreContent = true;
+
+  // Generate a category based on article headline or type
+  const getCategory = () => {
+    if (article.category) return article.category.toUpperCase();
+
+    // Detect common categories from headline
+    const headline = article.headline.toLowerCase();
+    if (
+      headline.includes("food") ||
+      headline.includes("restaurant") ||
+      headline.includes("meal") ||
+      headline.includes("mcdonald")
+    )
+      return "FOOD & DINING";
+    if (
+      headline.includes("tech") ||
+      headline.includes("app") ||
+      headline.includes("device")
+    )
+      return "TECHNOLOGY";
+    if (
+      headline.includes("university") ||
+      headline.includes("student") ||
+      headline.includes("campus") ||
+      headline.includes("ntu")
+    )
+      return "EDUCATION";
+    return "BREAKING NEWS";
+  };
+
+  // Generate dynamic subheading if none provided
+  const getSubheading = () => {
+    if (article.description) return article.description;
+
+    // Extract keywords from headline for generic subheading
+    const headline = article.headline.toLowerCase();
+    if (headline.includes("free")) {
+      return "Limited time offer has students excited across Singapore";
+    } else if (headline.includes("new")) {
+      return "Innovative announcement surprises Singapore residents";
+    } else {
+      return "The announcement has generated significant buzz on social media";
+    }
+  };
+
+  // Get appropriate feature image based on content
+  useEffect(() => {
+    const category = article.category.toLowerCase();
+    let imageUrl = "";
+
+    // Map categories to images
+    switch (category) {
+      case "food":
+        imageUrl = "https://unsplash.com/photos/IGfIGP5ONV0"; // Food photography
+        break;
+      case "technology":
+        imageUrl = "https://unsplash.com/photos/8pb7Hq539Zw"; // Technology workspace
+        break;
+      case "education":
+        imageUrl = "https://unsplash.com/photos/Oaqk7qqNh_c"; // Students in a library
+        break;
+      case "lifestyle":
+        imageUrl = "https://unsplash.com/photos/1AhGNGKuhR0"; // Lifestyle reading moment
+        break;
+      case "business":
+        imageUrl = "https://unsplash.com/photos/hpjSkU2UYSU"; // Business meeting
+        break;
+      case "entertainment":
+        imageUrl =
+          "https://images.unsplash.com/photo-1603190287605-e6ade32fa852"; // Entertainment event
+        break;
+      case "travel":
+        imageUrl =
+          "https://plus.unsplash.com/premium_photo-1664361480872-6416aab14696"; // Scenic travel destination
+        break;
+      default:
+        imageUrl = "https://unsplash.com/photos/KMn4VEeEPR8"; // Default scenic view
+    }
+
+    setFeatureImage(imageUrl);
+  }, [article.category]);
+
+  // Generate a realistic publication date
+  const publicationDate = new Date();
+  const formattedDate = publicationDate.toLocaleDateString("en-SG", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  // Generate a realistic author name instead of "Anonymous"
+  const getAuthorName = () => {
+    const commonNames = [
+      "Sarah Tan",
+      "Michael Wong",
+      "Priya Singh",
+      "David Lim",
+      "Jessica Chen",
+      "Ahmad Ibrahim",
+      "Li Wei",
+      "Fatimah Binte Zainudin",
+    ];
+    // Create a deterministic but seemingly random selection based on headline
+    const nameIndex = article.headline.length % commonNames.length;
+    return commonNames[nameIndex];
+  };
+
+  // Generate appropriate title for author based on content
+  const getAuthorTitle = () => {
+    const category = getCategory();
+    if (category === "FOOD & DINING") return "Food & Lifestyle Reporter";
+    if (category === "TECHNOLOGY") return "Tech Correspondent";
+    if (category === "EDUCATION") return "Education Reporter";
+    return "Staff Reporter";
+  };
+
+  // Extract a quote from content if possible
+  const extractQuote = () => {
+    for (const paragraph of paragraphs) {
+      const quoteMatch = paragraph.match(/"([^"]+)"/);
+      if (quoteMatch && quoteMatch[1].length > 30) {
+        return quoteMatch[1];
+      }
+    }
+    // Generate generic quote if none found
+    return "This special announcement comes at a perfect time for our customers";
+  };
 
   const handleReadMoreClick = () => {
-    // Trigger the modal!
     setIsModalVisible(true);
   };
 
   return (
     <>
-      {/* Link tag can stay in the server component's layout or page, but fine here too */}
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700;900&display=swap"
       />
 
       <article className={styles.articleContainer}>
+        {/* News site header */}
+        <div className={styles.siteHeader}>
+          <div className={styles.logo}>
+            <span className={styles.newsSiteName}>Live News</span>
+          </div>
+          <div className={styles.siteNavbar}>
+            <span>Home</span>
+            <span>Business</span>
+            <span>Food</span>
+            <span>Lifestyle</span>
+          </div>
+        </div>
+
+        {/* Dynamic category tag */}
+        <div className={styles.categoryTag}>{getCategory()}</div>
+
         <header className={styles.header}>
           <h1 className={styles.title}>{article.headline}</h1>
+
+          {/* Dynamic subheading */}
+          <h2 className={styles.subheading}>{getSubheading()}</h2>
+
           <div className={styles.metadata}>
-            {/* Your metadata display - using passed 'article' data or static text */}
             <div className={styles.authorInfo}>
-              <span>Anonymous Author</span>
+              <div className={styles.authorAvatar}>
+                {/* Use online avatar service for dynamic yet consistent author images */}
+                <img
+                  src={`https://ui-avatars.com/api/?name=${getAuthorName().replace(
+                    " ",
+                    "+"
+                  )}&background=random`}
+                  alt="Author"
+                  className={styles.avatarImg}
+                />
+              </div>
+              <div className={styles.authorDetails}>
+                <span className={styles.authorName}>By {getAuthorName()}</span>
+                <span className={styles.authorTitle}>{getAuthorTitle()}</span>
+              </div>
             </div>
-            <span>·</span>
-            <span>{new Date().toLocaleDateString()}</span>
-            <span>·</span>
-            <span>5 min read</span>
+            <div className={styles.articleInfo}>
+              <span>{formattedDate}</span>
+              <span className={styles.dot}>•</span>
+              <span>Updated 2 hours ago</span>
+              <span className={styles.dot}>•</span>
+              <span>3 min read</span>
+            </div>
+          </div>
+
+          {/* Social sharing icons */}
+          <div className={styles.socialShare}>
+            <div className={styles.shareButton}>Share</div>
+            <div className={styles.shareIcon}>f</div>
+            <div className={styles.shareIcon}>t</div>
+            <div className={styles.shareIcon}>in</div>
           </div>
         </header>
 
-        {/* Container for partial content and fade */}
+        {/* Featured image - dynamically selected */}
+        <div className={styles.featuredImageContainer}>
+          <div className={styles.imageWrapper}>
+            <img
+              src={featureImage}
+              alt={article.headline}
+              className={styles.featuredImage}
+            />
+          </div>
+          <p className={styles.imageCaption}>
+            {article.headline.includes("McDonald")
+              ? "McDonald's outlets across Singapore will participate in the special promotion. | Photo: File"
+              : "The announcement has generated excitement across Singapore. | Photo: File"}
+          </p>
+        </div>
+
+        {/* Content with fade effect */}
         <div className={`relative ${styles.content}`}>
-          {" "}
-          {/* Added relative positioning */}
           <div
-            // Combine CSS module class with conditional Tailwind/utility classes
             className={`${styles.proseAdapt} ${
-              hasMoreContent ? "max-h-60 overflow-hidden" : ""
+              hasMoreContent ? "max-h-64 overflow-hidden" : ""
             }`}
-            // Use a generic class like proseAdapt in your CSS module or use Tailwind prose classes
-            // Adjust max-h-XX (e.g., max-h-60, max-h-80) for desired preview height
           >
+            {/* Add highlighted quote from article for emphasis */}
+            <div className={styles.pullQuote}>&quot;{extractQuote()}&quot;</div>
+
             {visibleParagraphs.map((paragraph, index) => (
               <p key={`vis-${index}`}>{paragraph}</p>
             ))}
+
+            {/* Dynamic info box based on content */}
+            <div className={styles.infoBox}>
+              <h3>
+                {article.headline.includes("free")
+                  ? "Promotion Details"
+                  : "Key Information"}
+              </h3>
+              <ul>
+                <li>Available on April 1st, 2025 only</li>
+                <li>Valid at participating locations across Singapore</li>
+                <li>Terms and conditions apply</li>
+                {article.headline.includes("student") && (
+                  <li>Valid student ID required</li>
+                )}
+              </ul>
+            </div>
           </div>
-          {/* Fade effect overlay */}
+
           {hasMoreContent && (
             <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/90 to-transparent pointer-events-none dark:from-gray-900 dark:via-gray-900/90"></div>
           )}
@@ -77,32 +281,51 @@ export default function ArticleClientPart({
 
         {/* "Read Full Article" Button */}
         {hasMoreContent && (
-          <div className="mt-6 text-center">
+          <div className={styles.readMoreContainer}>
             <button
               onClick={handleReadMoreClick}
-              // Use Tailwind or your CSS module class for styling
-              className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-              // Or className={styles.readMoreButton}
+              className={styles.readMoreButton}
             >
               Read Full Article
             </button>
           </div>
         )}
+
+        {/* Dynamic related articles section */}
+        <div className={styles.relatedArticles}>
+          <h3 className={styles.relatedTitle}>Related Articles</h3>
+          <div className={styles.relatedGrid}>
+            <div className={styles.relatedItem}>
+              <span className={styles.relatedCategory}>{getCategory()}</span>
+              <h4>
+                {article.headline.includes("McDonald")
+                  ? "McDonald's Introduces New Singapore-Exclusive Menu Items"
+                  : "Top 5 April Promotions in Singapore This Year"}
+              </h4>
+            </div>
+            <div className={styles.relatedItem}>
+              <span className={styles.relatedCategory}>SINGAPORE</span>
+              <h4>How Singaporeans Are Celebrating April Fools&apos; Day</h4>
+            </div>
+            <div className={styles.relatedItem}>
+              <span className={styles.relatedCategory}>
+                {getCategory() === "EDUCATION" ? "CAMPUS" : "LIFESTYLE"}
+              </span>
+              <h4>
+                {getCategory() === "EDUCATION"
+                  ? "NTU Opens New Student Hub With Popular Food Chains"
+                  : "The Best Deals in Singapore This Month"}
+              </h4>
+            </div>
+          </div>
+        </div>
       </article>
 
-      {/* Render the modal conditionally - Pass viewCount from article prop */}
       <RickRollModal
         isVisible={isModalVisible}
-        onClose={() => setIsModalVisible(false)} // Pass the function to close the modal
+        onClose={() => setIsModalVisible(false)}
         viewCount={article.views}
       />
     </>
   );
 }
-
-// Add a basic style in article.module.css if you don't have one for .proseAdapt
-/*
-.proseAdapt p {
-  margin-bottom: 1em;
-}
-*/

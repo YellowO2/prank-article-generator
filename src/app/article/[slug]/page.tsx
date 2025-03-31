@@ -67,7 +67,10 @@ export default async function Article({ params }: Props) {
     // Pass the fetched article data (potentially re-fetched for view count)
     // and the processed paragraphs to the client component
     <ArticleClientPart
-      article={article} // Or articleWithUpdatedViews if you re-fetched
+      article={{
+        ...article,
+        description: article.description ?? "No description available",
+      }} // Or articleWithUpdatedViews if you re-fetched
       paragraphs={paragraphs}
     />
   );

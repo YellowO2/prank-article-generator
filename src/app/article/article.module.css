@@ -1,71 +1,322 @@
+/* article.module.css */
 .articleContainer {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    font-family: 'IBM Plex Serif', serif;
-  }
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  padding: 1rem;
+}
 
-  
-  /* .articleContainer {
-    
-    min-height: 100vh;
-    width: 100%;
-    margin: 0;
-    padding: 2rem;
-    max-width: 100%;
-  } */
-  
-  .header {
-    margin-bottom: 48px;
+/* Site header styling */
+.siteHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.logo {
+  font-weight: 700;
+}
+
+.newsSiteName {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #111;
+}
+
+.siteNavbar {
+  display: flex;
+  gap: 1rem;
+}
+
+.siteNavbar span {
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.siteNavbar span:hover {
+  color: #e60000;
+}
+
+/* Category tag */
+.categoryTag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #e60000;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+/* Article header */
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  color: #111;
+}
+
+.subheading {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #555;
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+
+.metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.authorAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.authorDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  font-weight: 500;
+}
+
+.authorTitle {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.articleInfo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.dot {
+  color: #999;
+}
+
+/* Social sharing */
+.socialShare {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.shareButton {
+  padding: 0.25rem 0.75rem;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.shareIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Featured image */
+.featuredImageContainer {
+  margin: 1.5rem 0;
+}
+
+.imageWrapper {
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.featuredImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imageCaption {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Article content */
+.content {
+  margin-bottom: 2rem;
+}
+
+.proseAdapt {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.proseAdapt p {
+  margin-bottom: 1.25rem;
+}
+
+.proseAdapt p:first-of-type::first-letter {
+  font-family: 'Playfair Display', serif;
+  float: left;
+  font-size: 3.5rem;
+  line-height: 0.8;
+  padding-right: 0.5rem;
+  font-weight: 700;
+}
+
+/* Pull quote */
+.pullQuote {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: #e60000;
+  border-left: 3px solid #e60000;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+/* Info box */
+.infoBox {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+}
+
+.infoBox h3 {
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.infoBox ul {
+  padding-left: 1.5rem;
+  margin: 0;
+}
+
+.infoBox li {
+  margin-bottom: 0.5rem;
+}
+
+/* Read more button */
+.readMoreContainer {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.readMoreButton {
+  padding: 0.75rem 2rem;
+  background-color: #e60000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.readMoreButton:hover {
+  background-color: #cc0000;
+}
+
+/* Related articles */
+.relatedArticles {
+  margin-top: 3rem;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 1.5rem;
+}
+
+.relatedTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.5rem;
+}
+
+.relatedItem {
+  cursor: pointer;
+}
+
+.relatedCategory {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #e60000;
+  margin-bottom: 0.5rem;
+}
+
+.relatedItem h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.relatedItem h4:hover {
+  color: #e60000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
   }
   
-  .title {
-    font-size: 42px;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 24px;
-    color: #242424;
-    letter-spacing: -0.016em;
+  .siteNavbar {
+    display: none;
   }
   
   .metadata {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #6b6b6b;
-    font-size: 14px;
+    flex-direction: column;
   }
   
-  .authorInfo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  .relatedGrid {
+    grid-template-columns: 1fr;
   }
-  
-  .authorAvatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background-color: #e5e5e5;
-    background-image: linear-gradient(to bottom right, #e5e5e5, #f5f5f5);
-  }
-  
-  .content {
-    font-size: 20px;
-    line-height: 1.8;
-    color: #292929;
-  }
-  
-  .content p {
-    margin-bottom: 32px;
-  }
-  
-  @media (max-width: 768px) {
-    .title {
-      font-size: 32px;
-    }
-    
-    .content {
-      font-size: 18px;
-    }
-  }
+}
