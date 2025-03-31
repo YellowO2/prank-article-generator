@@ -7,12 +7,13 @@ import { Metadata } from "next";
 import ArticleClientPart from "../ArticleClientPart"; // Adjust path if you placed it elsewhere
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
-// generateMetadata remains largely the same (Remove unnecessary 'params = await params')
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const slug = params.slug;
+  const resolvedParams = await params; // Await params if it's a Promise
+  const slug = resolvedParams.slug;
+
   const article = await findArticleBySlug(slug);
 
   // Decide when to increment view count - doing it here means it increments
@@ -42,7 +43,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // Default export Server Component
 export default async function Article({ params }: Props) {
   // Remove unnecessary 'params = await params'
-  const slug = params.slug;
+  const resolvedParams = await params; // Await params if it's a Promise
+  const slug = resolvedParams.slug;
   const article = await findArticleBySlug(slug);
 
   // Increment view count here might be more accurate for actual page views
