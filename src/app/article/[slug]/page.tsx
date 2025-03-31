@@ -1,51 +1,72 @@
-import styles from "./article.module.css";
+// src/app/article/[slug]/page.tsx
+// import styles from "./article.module.css";
+import { findArticleBySlug, incrementViewCount } from "@/database-functions";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
+// Import the NEW Client Component
+import ArticleClientPart from "../ArticleClientPart"; // Adjust path if you placed it elsewhere
 
-export default function Article({ params }: { params: { slug: string } }) {
-  // ...existing code...
-  const article = {
-    title:
-      "Breaking: Scientists Discover That Coffee Actually Makes You Sleep Better",
-    author: "Dr. April Foolsworth",
-    date: "April 1, 2025",
-    readTime: "4 min read",
-    content: `In a groundbreaking study that has left the scientific community bewildered, researchers at the prestigious Institute of Beverage Studies have discovered that coffee, contrary to popular belief, is actually a powerful sleep aid.
+interface Props {
+  params: { slug: string };
+}
 
-    The study, conducted over a period of three months with 1,000 participants, showed that individuals who consumed espresso shots immediately before bedtime fell asleep an average of 73% faster than those who didn't. "We're as surprised as anyone," says lead researcher Dr. Bean Counter.
+// generateMetadata remains largely the same (Remove unnecessary 'params = await params')
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const slug = params.slug;
+  const article = await findArticleBySlug(slug);
 
-    The research team initially thought there must be a mistake in their methodology when they observed participants dozing off mid-sip during their controlled trials. However, repeated experiments confirmed their findings: the stronger the coffee, the deeper the sleep.
+  // Decide when to increment view count - doing it here means it increments
+  // even if the page data is just used for metadata generation.
+  // Consider moving incrementViewCount to the main Article component fetch below
+  // if you only want it to count when the full page is rendered.
+  if (article) {
+    // Only increment if article exists
+    await incrementViewCount(slug); // Make sure incrementViewCount is awaited if it's async
+    // Re-fetch article if view count needs to be absolutely up-to-date for metadata (unlikely needed)
+  }
 
-    "This completely changes everything we thought we knew about caffeine," explains Dr. Counter. "It turns out we've been drinking coffee in the morning when we should have been having it at night all along."
+  if (!article) {
+    return {
+      title: "Article Not Found",
+      description: "The requested article could not be found.",
+    };
+  }
 
-    Major coffee chains are already adapting to this news, with plans to open special evening cafes branded as "sleep cafes." Starbucks has announced a new menu item called the "Bedtime Brew," while other chains are racing to create their own sleep-inducing coffee concoctions.`,
+  return {
+    title: article.headline,
+    description: article.content.substring(0, 160) + "...",
+    // Add other metadata
   };
+}
 
+// Default export Server Component
+export default async function Article({ params }: Props) {
+  // Remove unnecessary 'params = await params'
+  const slug = params.slug;
+  const article = await findArticleBySlug(slug);
+
+  // Increment view count here might be more accurate for actual page views
+  // if (!article) { /* handle notFound */ } else { await incrementViewCount(slug); }
+  // Fetch article *again* after increment if you want the absolute latest count passed down
+  // const articleWithUpdatedViews = await findArticleBySlug(slug); // Optional re-fetch
+
+  if (!article) {
+    notFound();
+  }
+
+  // Process paragraphs here on the server
+  const paragraphs = article.content
+    .split("\n\n")
+    .map((p) => p.trim())
+    .filter((p) => p.length > 0);
+
+  // Render the Client Component and pass data down
   return (
-    <>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;700&display=swap"
-      />
-      <article className={styles.articleContainer}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>{article.title}</h1>
-          <div className={styles.metadata}>
-            <div className={styles.authorInfo}>
-              <div className={styles.authorAvatar} />
-              <span>{article.author}</span>
-            </div>
-            <span>·</span>
-            <span>{article.date}</span>
-            <span>·</span>
-            <span>{article.readTime}</span>
-          </div>
-        </header>
-
-        <div className={styles.content}>
-          {article.content.split("\n\n").map((paragraph, index) => (
-            <p key={index}>{paragraph.trim()}</p>
-          ))}
-        </div>
-      </article>
-    </>
+    // Pass the fetched article data (potentially re-fetched for view count)
+    // and the processed paragraphs to the client component
+    <ArticleClientPart
+      article={article} // Or articleWithUpdatedViews if you re-fetched
+      paragraphs={paragraphs}
+    />
   );
 }

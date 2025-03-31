@@ -23,13 +23,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="retro" suppressHydrationWarning>
+    <html
+      lang="en"
+      // data-theme="retro"
+      suppressHydrationWarning
+    >
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div data-theme="retro" className="min-h-screen text-foreground">
-          {children}
-        </div>
+        <div className="min-h-screen text-foreground">{children}</div>
       </body>
     </html>
   );

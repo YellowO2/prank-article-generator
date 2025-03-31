@@ -1,8 +1,7 @@
 // app/api/pranks/route.ts
 import { NextRequest, NextResponse } from "next/server";
-// No database imports needed for now!
-// import { prisma } from '@/lib/db';
-// import { findPrankBySlug, savePrank } from '@/lib/prankDbUtils'; // No Firestore either
+import { findArticleBySlug, saveArticle } from "../../../database-functions";
+import { generateArticleContent } from "../../../google-gen-ai";
 
 // Basic slugify function (keep this or use a library)
 function slugify(text: string): string {
@@ -20,10 +19,10 @@ function slugify(text: string): string {
 }
 
 export async function POST(req: NextRequest) {
-  console.log("--- Using Mock API Route (No DB Interaction) ---");
   try {
     const body = await req.json();
-    let { headline, description, type } = body;
+    const { headline, description } = body;
+    const type = body.type || "news-article"; // Default type
 
     // --- Basic Validation (Still Important!) ---
     if (
@@ -37,41 +36,63 @@ export async function POST(req: NextRequest) {
       );
     }
     // Add other validation as needed (length, allowed types etc)
-    headline = headline.trim();
-    description = description?.trim() || null;
-    if (!type || typeof type !== "string") {
+    if (description && typeof description !== "string") {
       return NextResponse.json(
-        { error: "Prank type is required." },
+        { error: "Description must be a string." },
         { status: 400 }
       );
     }
 
-    // --- Generate Slug (No Uniqueness Check Yet) ---
+    let content;
+    try {
+      content = await generateArticleContent(description);
+    } catch (error) {
+      console.error("Content generation failed:", error);
+      return NextResponse.json(
+        { error: "Failed to generate article content" },
+        { status: 500 }
+      );
+    }
+
+    // --- Generate Slug ---
     let finalSlug = slugify(headline);
+
     if (!finalSlug) {
       // Handle cases where headline results in empty slug
       finalSlug = `prank-${Date.now()}`; // Simple fallback
     }
 
-    // --- Skip Database Check and Save ---
-    console.log(`(Mock) Would check/save prank with slug: ${finalSlug}`);
-    console.log(`(Mock) Data:`, { headline, description, type });
-    // No actual DB interaction here
+    // Check if slug already exists
+    const existingArticle = await findArticleBySlug(finalSlug);
+    if (existingArticle) {
+      finalSlug = `${finalSlug}-${Date.now()}`;
+    }
+
+    // Save to Firestore
+    await saveArticle({
+      headline: headline,
+      description: description,
+      type: type,
+      content: content,
+      slug: finalSlug,
+      views: 0,
+      // headline: "Test Headline",
+      // description: "Test Description",
+      // type: "news-article",
+      // content: "This is test content",
+      // slug: "test-headline",
+    });
 
     // --- Construct the Full Link ---
     // Use environment variable for base URL or fallback to request origin
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || req.nextUrl.origin;
-    // Use the desired path structure (e.g., /article/)
     const prankPath = `/article/${finalSlug}`;
     const fullLink = `${baseUrl}${prankPath}`;
 
     console.log(`(Mock) Generated Link: ${fullLink}`);
 
-    // --- Return Success Response ---
-    // Simulate a short delay like a real DB operation might have
-    await new Promise((resolve) => setTimeout(resolve, 300)); // Optional: Simulate delay
-
-    return NextResponse.json({ link: fullLink }, { status: 201 }); // 201 Created
+    return NextResponse.json({ link: fullLink }, { status: 201 });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error("Mock API Error creating prank:", error);
     if (error instanceof SyntaxError) {

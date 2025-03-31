@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter for potential redirects
 
 export default function CreatePrank() {
   const [formData, setFormData] = useState({
@@ -9,6 +8,7 @@ export default function CreatePrank() {
     description: "",
     type: "news-article", // Default type
   });
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [generatedLink, setGeneratedLink] = useState<string | null>(null);
@@ -52,6 +52,7 @@ export default function CreatePrank() {
       } else {
         throw new Error("API did not return a link.");
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error("Failed to create prank:", err);
       setError(err.message || "An unexpected error occurred.");
@@ -78,9 +79,7 @@ export default function CreatePrank() {
 
   return (
     <div className="max-w-2xl mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">
-        Create Your ahem MasterPiece
-      </h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">Create Your Link</h1>
 
       {!generatedLink ? (
         // Show Form if no link is generated yet
@@ -202,13 +201,13 @@ export default function CreatePrank() {
           </div>
           <button
             onClick={() => {
-              setGeneratedLink(null);
-              // Optionally reset form fields if needed
-              setFormData({
-                headline: "",
-                description: "",
-                type: "news-article",
-              });
+              //   setGeneratedLink(null);
+              //   // Optionally reset form fields if needed
+              //   setFormData({
+              //     headline: "",
+              //     description: "",
+              //     type: "news-article",
+              //   });
             }}
             className="btn btn-ghost"
           >
