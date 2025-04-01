@@ -2,18 +2,16 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
-export async function generateArticleContent(
-  description: string
-): Promise<{
+export async function generateArticleContent(description: string): Promise<{
   title: string;
   category: string;
   content: string;
   subHeading: string;
 }> {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-    const prompt = `Write a short news article (200-300 words) based on this description: "${description}". 
+    const prompt = `Write a short news article (300-500 words) based on this description: "${description}". 
 
 The article should be written in a style similar to real news articles. The title should be **catchy and believable**. Ensure the article **sounds natural**, not like an AI-generated summary. 
 
