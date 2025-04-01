@@ -7,7 +7,7 @@ interface ArticleClientPartProps {
   article: {
     headline: string;
     views: number;
-    description: string; // Use this for subheading if available
+    description: string;
     type?: string; // Could be used for category tag
     category: string; // Category for the article
   };

@@ -43,12 +43,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    let content, title, category;
+    let content, title, category, descriptionNew;
     try {
       const result = await generateArticleContent(description);
       title = result.title;
       content = result.content;
       category = result.category;
+      descriptionNew = result.subHeading; // subheading as description
     } catch (error) {
       console.error("Content generation failed:", error);
       return NextResponse.json(
@@ -74,7 +75,7 @@ export async function POST(req: NextRequest) {
     // Save to Firestore
     await saveArticle({
       headline: title,
-      description: description,
+      description: descriptionNew,
       type: type,
       content: content,
       slug: finalSlug,
