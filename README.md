@@ -2,7 +2,7 @@
 
 A fun web application that lets you create convincing fake news articles which turns out to be a rick roll for April Fools' Day or anytime you want to prank your friends!
 
-![Prank Article Example](screenshots/generated-article.png)
+![Prank Article Example](./public/fake-article.png)
 
 ## Features
 
@@ -17,35 +17,7 @@ A fun web application that lets you create convincing fake news articles which t
 ![Creation Interface](./public/creation-page.png)
 
 ### Article with Classic Rick Roll
-![Article](./public/fake-article.png)
 ![Rick Roll](./public/rick-roll.png)
-
-## Getting Started
-
-First, clone the repository:
-
-```bash
-git clone https://github.com/yourusername/prank-article-generator.git
-cd prank-article-generator
-```
-
-Install dependencies:
-
-```bash
-npm install
-# or
-yarn
-```
-
-Run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to start creating pranks!
 
 ## How It Works
 
