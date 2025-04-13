@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Prank Article Generator
+
+A fun web application that lets you create convincing fake news articles which turns out to be a rick roll for April Fools' Day or anytime you want to prank your friends!
+
+![Prank Article Example](screenshots/generated-article.png)
+
+## Features
+
+- Create customized fake news articles, breaking news alerts, and social media posts
+- Easy-to-use interface for crafting the perfect prank
+- Shareable links to send to your friends
+- Built-in Rick Roll functionality (because no prank is complete without it)
+
+## Screenshots
+
+### Creation Page
+![Creation Interface](./public/creation-page.png)
+
+### Article with Classic Rick Roll
+![Article](./public/fake-article.png)
+![Rick Roll](./public/rick-roll.png)
 
 ## Getting Started
 
-First, run the development server:
+First, clone the repository:
+
+```bash
+git clone https://github.com/yourusername/prank-article-generator.git
+cd prank-article-generator
+```
+
+Install dependencies:
+
+```bash
+npm install
+# or
+yarn
+```
+
+Run the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to start creating pranks!
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How It Works
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Choose your prank type (news article, breaking news, social post)
+2. Enter your headline and description
+3. Generate a shareable link
+4. Send to your friends and enjoy their reaction!
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- Next.js 14
+- TypeScript
+- TailwindCSS
+- DaisyUI
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Disclaimer
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project is meant for harmless fun. Please use responsibly and don't create content that could cause harm, panic, or spread actual misinformation.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
