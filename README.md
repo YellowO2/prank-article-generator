@@ -1,41 +1,33 @@
-# Prank Article Generator
+# Prank Article Rick Roll Generator
 
-A fun web application that lets you create convincing fake news articles which turns out to be a rick roll for April Fools' Day or anytime you want to prank your friends!
+A web application for creating shareable, fake news articles that cleverly lead to a classic rickroll. Designed for harmless fun and April Fools' pranks.
 
-![Prank Article Example](./public/fake-article.png)
+**[www.direct-news.live](https://www.direct-news.live)**
 
-## Features
+> **Warning:** The creation page itself is part of the prank! Please consider lowering your volume before visiting the live demo.
 
-- Create customized fake news articles, breaking news alerts, and social media posts
-- Easy-to-use interface for crafting the perfect prank
-- Shareable links to send to your friends
-- Built-in Rick Roll functionality (because no prank is complete without it)
-
-## Screenshots
-
-### Creation Page
-![Creation Interface](./public/creation-page.png)
-
-### Article with Classic Rick Roll
-![Rick Roll](./public/rick-roll.png)
+![Example of a generated prank article](./public/fake-article.png)
 
 ## How It Works
 
-1. Choose your prank type (news article, breaking news, social post)
-2. Enter your headline and description
-3. Generate a shareable link
-4. Send to your friends and enjoy their reaction!
+**1. Craft the Prank:** Choose a template and use the simple interface to create your custom article, complete with headlines, text, and images.
+
+![Creation Interface](./public/creation-page.png)
+
+**2. Share the Link:** The app generates a unique, shareable URL for your prank.
+
+**3. Enjoy the Result:** Send the link to your friends! Tho rickroll is perhaps too old for 2025. lol.
+![Rick Roll](./public/rick-roll.png)
 
 ## Tech Stack
 
-- Next.js 14
-- TypeScript
-- TailwindCSS
-- DaisyUI
+- **Framework:** Next.js 14
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS & DaisyUI
 
 ## Disclaimer
 
-This project is meant for harmless fun. Please use responsibly and don't create content that could cause harm, panic, or spread actual misinformation.
+This project is intended for harmless fun. Please use it responsibly and do not create content that could cause harm, panic, or spread actual misinformation.
 
 ## License
 
