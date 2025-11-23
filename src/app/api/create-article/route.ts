@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { findArticleBySlug, saveArticle } from "../../../database-functions";
 import { generateArticleContent } from "../../../google-gen-ai";
 
+export const maxDuration = 60;
+
 // Basic slugify function (keep this or use a library)
 function slugify(text: string): string {
   return text
