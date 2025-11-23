@@ -1,33 +1,28 @@
-# Prank Article Rick Roll Generator
+# LLM Prank Article Generator
 
-A web application for creating shareable, fake news articles that cleverly lead to a classic rickroll. Designed for harmless fun and April Fools' pranks.
+A Next.js web application that leverages Generative AI to create realistic-looking fake news articles for april fools.
 
-**[www.direct-news.live](https://www.direct-news.live)**
+**[www.direct-news.live/create-for-real](https://www.direct-news.live/create-for-real)**
 
-> **Warning:** The creation page itself is part of the prank! Please consider lowering your volume before visiting the live demo.
+> **Note:** This project demonstrates the integration of Large Language Models (LLMs) into a modern web application to generate context-aware content dynamically.
 
 ![Example of a generated prank article](./public/fake-article.png)
 
-## How It Works
+## Overview
 
-**1. Craft the Prank:** Choose a template and use the simple interface to create your custom article, complete with headlines, text, and images.
-
-![Creation Interface](./public/creation-page.png)
-
-**2. Share the Link:** The app generates a unique, shareable URL for your prank.
-
-**3. Enjoy the Result:** Send the link to your friends! Tho rickroll is perhaps too old for 2025. lol.
-![Rick Roll](./public/rick-roll.png)
+This application allows users to generate custom "news articles" by simply providing a topic. It uses **Google's Gemini** model to craft convincing headlines and article body text, mimicking the style of real journalism. The generated pages are designed to look authentic before revealing the prank (a classic Rickroll) to the reader.
 
 ## Tech Stack
 
-- **Framework:** Next.js 14
+- **Framework:** Next.js 14 (App Router)
 - **Language:** TypeScript
-- **Styling:** Tailwind CSS & DaisyUI
+- **AI Integration:** Google Generative AI SDK (Gemini)
+- **Styling:** Tailwind CSS, DaisyUI
+- **Database:** Firebase (Firestore)
 
 ## Disclaimer
 
-This project is intended for harmless fun. Please use it responsibly and do not create content that could cause harm, panic, or spread actual misinformation.
+This project is intended for educational purposes and harmless fun. It serves as a demonstration of how AI can be used to generate synthetic media. Please use responsibly.
 
 ## License
 
