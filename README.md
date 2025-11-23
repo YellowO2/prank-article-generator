@@ -4,7 +4,7 @@ A Next.js web application that leverages Generative AI to create realistic-looki
 
 **[www.direct-news.live/create-for-real](https://www.direct-news.live/create-for-real)**
 
-> **Note:** This project demonstrates the integration of Large Language Models (LLMs) into a modern web application to generate context-aware content dynamically.
+> **Note:** The generation takes about 10 seconds.
 
 ![Example of a generated prank article](./public/fake-article.png)
 
