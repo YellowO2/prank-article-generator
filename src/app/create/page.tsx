@@ -34,7 +34,7 @@ export default function CreateRickRollPage() {
         Redirecting you to the actual create page in 10 seconds...
       </p>
       <a href="/create-for-real" className="btn btn-info">
-        ok this time for real its the creation page
+        here is the real creation page
       </a>
     </div>
   );

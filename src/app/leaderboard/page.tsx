@@ -10,7 +10,7 @@ export default function Leaderboard() {
       <div className="space-y-4">
         {/* Placeholder for leaderboard items */}
         <div className="p-4 border rounded">
-          <h3 className="font-bold">Loading pranks...</h3>
+          <h3 className="font-bold">Ughgh too lazy to implement...</h3>
         </div>
       </div>
     </div>
