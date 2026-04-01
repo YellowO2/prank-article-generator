@@ -6,6 +6,8 @@ import {
   getDocs,
   addDoc,
   updateDoc,
+  orderBy,
+  limit,
 } from "firebase/firestore";
 import { Article } from "./models/article";
 
@@ -44,4 +46,14 @@ export async function saveArticle(prank: Article): Promise<string> {
     ...prank,
   });
   return docRef.id;
+}
+
+export async function getTopArticles(
+  limitCount: number = 10,
+): Promise<Article[]> {
+  const pranksRef = collection(db, "april-fools");
+  const q = query(pranksRef, orderBy("views", "desc"), limit(limitCount));
+  const querySnapshot = await getDocs(q);
+
+  return querySnapshot.docs.map((doc) => doc.data() as Article);
 }
