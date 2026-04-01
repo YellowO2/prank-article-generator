@@ -11,6 +11,7 @@
   "dependencies": {
     "@firebase/firestore": "^4.7.10",
     "@google/generative-ai": "^0.24.0",
+    "@vercel/analytics": "^2.0.1",
     "daisyui": "^5.0.9",
     "firebase": "^11.3.0",
     "next": "15.2.8",
