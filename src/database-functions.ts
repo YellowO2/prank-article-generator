@@ -49,7 +49,7 @@ export async function saveArticle(prank: Article): Promise<string> {
 }
 
 export async function getTopArticles(
-  limitCount: number = 10,
+  limitCount: number = 100,
 ): Promise<Article[]> {
   const pranksRef = collection(db, "april-fools");
   const q = query(pranksRef, orderBy("views", "desc"), limit(limitCount));
